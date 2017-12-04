@@ -80,10 +80,8 @@ class ParameterGenerator(object):
         :param generator: a ParameterGenerator instance
         :return:
         """
-        print("Initializing from generator...")
         self.enums = generator.enums
         self.parameters = generator.parameters
-        print("self.parameters is now: " + str(self.parameters))
         self.childs = generator.childs
         self.parent = generator.parent
         self.group = generator.group
