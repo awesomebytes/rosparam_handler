@@ -31,6 +31,7 @@ from string import Template
 import sys
 import os
 import re
+from parameter_importer import load_generator
 
 
 def eprint(*args, **kwargs):
@@ -56,18 +57,47 @@ class ParameterGenerator(object):
             self.group = "gen"
         self.group_variable = filter(str.isalnum, self.group)
 
-        if len(sys.argv) != 5:
-            eprint(
-                "ParameterGenerator: Unexpected amount of args, did you try to call this directly? You shouldn't do this!")
-
-        self.dynconfpath = sys.argv[1]
-        self.share_dir = sys.argv[2]
-        self.cpp_gen_dir = sys.argv[3]
-        self.py_gen_dir = sys.argv[4]
-
         self.pkgname = None
         self.nodename = None
         self.classname = None
+
+    def _load_generator(self, package_name, params_file_name):
+        """
+        Load from another package .params file it's generator.
+        :param package_name: name of the package where the .params file is
+        :param params_file_name: name of the .params file, in the cfg folder
+        :return: ParameterGenerator instance from the provided file
+        """
+        gen = load_generator(package_name, params_file_name)
+        if gen is None:
+            eprint("Could not load generator from package " + package_name +
+                   " and file " + params_file_name)
+        return gen
+
+    def _initialize_from_generator(self, generator):
+        """
+        Initialize this ParameterGenerator from another instance.
+        :param generator: a ParameterGenerator instance
+        :return:
+        """
+        print("Initializing from generator...")
+        self.enums = generator.enums
+        self.parameters = generator.parameters
+        print("self.parameters is now: " + str(self.parameters))
+        self.childs = generator.childs
+        self.parent = generator.parent
+        self.group = generator.group
+        self.group_variable = generator.group_variable
+
+    def initialize_from_file(self, package_name, params_file_name):
+        """
+        Initialize this ParameterGenerator from another package .params file.
+        :param package_name: name of the package where the .params file is
+        :param params_file_name: name of the .params file, in the cfg folder
+        :return:
+        """
+        self._initialize_from_generator(self._load_generator(package_name,
+                                                             params_file_name))
 
     def add_group(self, name):
         """
@@ -326,6 +356,15 @@ class ParameterGenerator(object):
         self.pkgname = pkgname
         self.nodename = nodename
         self.classname = classname
+
+        if len(sys.argv) != 5:
+            eprint(
+                "ParameterGenerator: Unexpected amount of args, did you try to call this directly? You shouldn't do this!")
+
+        self.dynconfpath = sys.argv[1]
+        self.share_dir = sys.argv[2]
+        self.cpp_gen_dir = sys.argv[3]
+        self.py_gen_dir = sys.argv[4]
 
         if self.parent:
             eprint("You should not call generate on a group! Call it on the main parameter generator instead!")
