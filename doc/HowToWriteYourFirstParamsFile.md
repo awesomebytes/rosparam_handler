@@ -150,7 +150,7 @@ NOTE: The third parameter should be equal to the params file name, without exten
 
 ## Add params file to CMakeLists
 
-In order to make this params file usable it must be executable, so lets use the following command to make it excecutable
+In order to make this params file usable it must be executable, so lets use the following command to make it executable
 
 ```shell
 chmod a+x cfg/Tutorials.params
