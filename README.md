@@ -34,7 +34,7 @@ See the Tutorials on
 - [How to write your first .params file](doc/HowToWriteYourFirstParamsFile.md)
 - [How to use your parameter struct](doc/HowToUseYourParameterStruct.md)
 - [rosparam_handler_tutorial](https://github.com/cbandera/rosparam_handler_tutorial)
-- [How to import from another .params file][doc/HowToImportFromAnotherParamsFile.md]
+- [How to import from another .params file](doc/HowToImportFromAnotherParamsFile.md)
 
 ## Installation
 `rosparam_handler` has been released in version `0.1.1` for 
