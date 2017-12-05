@@ -86,7 +86,7 @@ def load_generator(package_name, params_file_name, relative_path='/cfg/'):
         pkg_path = rp.get_path(package_name)
     except ResourceNotFound:
         return None
-    full_file_path = pkg_path + '/cfg/' + params_file_name
+    full_file_path = pkg_path + relative_path + params_file_name
     # print("Loading rosparam_handler params from file: " + full_file_path)
 
     # Read the file and check for exit() calls
