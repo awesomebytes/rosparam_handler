@@ -87,15 +87,20 @@ class ParameterGenerator(object):
         self.group = generator.group
         self.group_variable = generator.group_variable
 
-    def initialize_from_file(self, package_name, params_file_name):
+    def initialize_from_file(self, package_name,
+                             params_file_name,
+                             relative_path='/cfg/'):
         """
         Initialize this ParameterGenerator from another package .params file.
         :param package_name: name of the package where the .params file is
         :param params_file_name: name of the .params file, in the cfg folder
+        :param relative_path: path in between package_name and params_file_name
+            defaults to /cfg/ e.g.: package_name/cfg/File.params
         :return:
         """
         self._initialize_from_generator(self._load_generator(package_name,
-                                                             params_file_name))
+                                                             params_file_name,
+                                                             relative_path))
 
     def add_group(self, name):
         """

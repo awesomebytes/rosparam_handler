@@ -42,6 +42,8 @@ def remove_comments(source):
     """
     Returns 'source' minus comments, based on
     https://stackoverflow.com/a/2962727
+    :param source: string with Python source code
+    :return: source code without comments
     """
     io_obj = cStringIO.StringIO(source)
     out = ""
@@ -66,13 +68,17 @@ def remove_comments(source):
     return out
 
 
-def load_generator(package_name, params_file_name):
+def load_generator(package_name, params_file_name, relative_path='/cfg/'):
     """
     Returns the generator created in another .params file from another package.
     Python does not allow to import from files without the extension .py
     so we need to hack a bit to be able to import from .params file.
     Also the .params file was never thought to be imported, so we need
     to do some extra tricks.
+    :param package_name: ROS package name
+    :param params_file_name: .params file name
+    :param relative_path: path in between package_name and params_file_name, defaults to /cfg/
+    :return:
     """
     # Get the file path
     rp = RosPack()

@@ -16,7 +16,7 @@ You can find an example of a minimal package called [imported_rosparam_handler_t
 from rosparam_handler.parameter_generator_catkin import *
 gen = ParameterGenerator()
 # Do it at the start, as it overwrites all current params
-gen.initialize_from_file('rosparam_handler_tutorial', 'Demo.params')
+gen.initialize_from_file('rosparam_handler_tutorial', 'Demo.params', relative_path='/cfg/')
 
 # Do your usual business
 gen.add("some_other_param", paramtype="int",description="Awesome int", default=2, min=1, max=10, configurable=True)
@@ -27,3 +27,5 @@ exit(gen.generate("imported_rosparam_handler_test", "example_node", "Example"))
 ```
 
 You just need to call `initialize_from_file(ros_package_name, File.params)`. Note that it will overwrite all params. Should be called at the start (that's why it's called initialize).
+
+You have the optional parameter `relative_path` in case you store your .params file somewhere else than in the `/cfg/` folder.
